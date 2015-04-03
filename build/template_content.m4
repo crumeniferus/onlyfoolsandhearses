@@ -1,0 +1,1 @@
+m4_sinclude(crum4_createpagename`_content.m4')

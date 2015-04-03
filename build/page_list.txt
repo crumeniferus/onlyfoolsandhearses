@@ -1,0 +1,5 @@
+#<displayed page name>literal space<file name>
+home,index.html
+photographs,gallery.html
+booking,booking.html
+contact,contact.html

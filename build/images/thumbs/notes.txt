@@ -1,0 +1,5 @@
+Thumbnails are intended for the navigation bar of slideshows.
+Images should be equal to or smaller than 83 pixels wide x 55 pixels high exactly.
+If the image proportions are not the same as this, scale so that the thumbnail fits _within_ an 83 x 55 box.
+However, with thumbnails this size you can get away with a lot of squashing, which can still look better than a thumbnail that is long and very thin. I found that squashing even a 720 x 280 picture, which included faces, looks better than applying proportionate scaling.
+I have largely ignored my own rule on equal proportions in favour of keeping the tiny area filled edge to edge with image.

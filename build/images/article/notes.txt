@@ -1,0 +1,3 @@
+Article images are intended for inclusion in article.
+They should be equal to or smaller than 320 pixels wide x 240 pixels high exactly.
+If the image proportions are not the same as this, scale so that the image fits _within_ a 320 x 240 box.
