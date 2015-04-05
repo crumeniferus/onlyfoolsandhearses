@@ -16,6 +16,6 @@
  class="fn url">m4_sinclude(`site_title.txt')</a></strong> 
 					<span class="role">m4_sinclude(`site_strapline.txt')</span> 
 				</span><!-- /.primary --> 
-				<span class="bio">The hearse and limousine fleet are kept in top condition by our expert panel master Roland Hilder.</span> <!-- /.bio --> 
+				<span class="bio">The hearses are kept in top condition by the expert panel master Roland Hilder from our partner company R H Carriagemasters.</span> <!-- /.bio --> 
 		  </address><!-- /#about --> 
 		</footer><!-- /#contentinfo --> 

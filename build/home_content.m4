@@ -4,10 +4,10 @@
 			</figure>
 			<hgroup>
 				<h2>Featured Shot</h2>
-				<h3><a href="#">Our fleet of black vehicles.</a></h3>
+				<h3><a href="#">Our Horse-Drawn Hearse, hitched to the Reliant Robin.</a></h3>
 			</hgroup>
-		 <p>All our vehicles are constantly kept in top condition. Roland Hilder himself is an expert at bodywork care and repair.</p>
-		<p>Having said that, the Reliant Robin didn't ought to look too good otherwise it would lose its authenticity!</p>
+		 <p>All our vehicles are constantly kept in top condition by our partner company, R H Carriagemasters. They have an expert at bodywork care and repair.</p>
+		<p>Having said that, we don't want the Reliant Robin to look too good otherwise it would lose its authenticity!</p>
 
 		</article></aside><!-- /#featured -->
 
