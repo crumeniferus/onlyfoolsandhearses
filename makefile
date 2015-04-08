@@ -32,10 +32,6 @@ FILE_SPECS:=*.html css/*.css images/*.jpg js/*.js
 file_filter=find $< \( -name *.jpg -o -name *.html -o -name *.js -o -name *.css \) -printf "%P\n"
 RSYNCFLAGS:=--verbose --progress --stats  --files-from=-
 
-#local_upstage=$(file_filter) | rsync $(RSYNCFLAGS) $< $@
-#remote_upstage=$(file_filter) | rsync $(RSYNCFLAGS) $< $@
-
-
 # Ready made line for quick copy to command line:
 #find release \( -name *.jpg -o -name *.html -o -name *.js -o -name *.css \) -printf "%P\n" | rsync --verbose --progress --stats  --files-from=- release eting_12012984@ftp.etingi.com: 
 
@@ -50,14 +46,13 @@ build : FORCE
 site : build
 	$(file_filter) | rsync $(RSYNCFLAGS) ./$< ./$@
 
+upload-beta : UPLOAD_DEST=$(BETA_URL)
 upload-beta : upload
-	UPLOAD_DEST=$(BETA_URL)
 
+upload-live : UPLOAD_DEST=$(LIVE_URL)
 upload-live : upload
-	UPLOAD_DEST=$(LIVE_URL)
 
 upload : site
-	#We only have beta right now so assume beta. Really must find a way to check for the right stage.
 	#wput returns a few different status values:
 	# 0 - All okay or nothing to do.
 	# 1 - Some files skipped due to size or timestamp checks that decided no trasnamission was required.
@@ -66,7 +61,7 @@ upload : site
 	# 4 - Local error.
 	#For our purposes, exit values 0 and 1 are a success but make considers only 0 to be a success.
 	#No additional warning messages are needed on top of those already supplied by wput.
-	wput --basename=./site/ ./site $(BETA_URL) || (if [ $$? = 1 ]; then exit 0; fi)
+	wput --basename=./site/ ./site $(UPLOAD_DEST) || (if [ $$? = 1 ]; then exit 0; fi)
 
 $(filter-out build, $(DEV_STAGE_NAMES)):
 	$(local_upstage)
