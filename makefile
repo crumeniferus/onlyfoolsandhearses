@@ -17,7 +17,7 @@
 #Here are the steps that this makefile will take to get a stage out into the wild.
 # Step				Progress
 # Checkout
-# Call the build makefile
+# Call the build makefile	Done
 # Copy from build to site	Done
 # Upload to server		Done
 
@@ -39,9 +39,13 @@ RSYNCFLAGS:=--verbose --progress --stats  --files-from=-
 # Ready made line for quick copy to command line:
 #find release \( -name *.jpg -o -name *.html -o -name *.js -o -name *.css \) -printf "%P\n" | rsync --verbose --progress --stats  --files-from=- release eting_12012984@ftp.etingi.com: 
 
-build :
+FORCE :
+
+build : FORCE
+	# There is a directory called build so using that name as a phony wouldn't work.
+	# Deciding whether to do any actual building or not is the purpose of the sub-make so we must always call it if we need to check the build is up to date.
 	@echo Need to call sub-make here.
-	#cd build && $(MAKE)
+	cd build && $(MAKE)
 
 site : build
 	$(file_filter) | rsync $(RSYNCFLAGS) ./$< ./$@
