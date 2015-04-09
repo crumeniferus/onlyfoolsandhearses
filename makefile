@@ -33,7 +33,7 @@ file_filter=find $< \( -name *.jpg -o -name *.html -o -name *.js -o -name *.css 
 RSYNCFLAGS:=--verbose --times --progress --stats  --files-from=-
 #WPUTDEBUGFLAGS:=--verbose --verbose --output-file=wput-log
 WPUTDEBUGFLAGS:=
-WPUTFLAGS:=--timestamp
+WPUTFLAGS:=--timestamp --reupload
 
 # Ready made line for quick copy to command line:
 #find release \( -name *.jpg -o -name *.html -o -name *.js -o -name *.css \) -printf "%P\n" | rsync --verbose --progress --stats  --files-from=- release eting_12012984@ftp.etingi.com: 
