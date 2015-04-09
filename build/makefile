@@ -24,15 +24,24 @@ PAGE_TEMPLATES=$(wildcard template_*.m4)
 CRUMENIFERUS_DEFS=$(wildcard crum_*.m4)
 page_name=$(shell grep "$@$$" $(PAGE_DEFS) | $(PAGE_NAME_FILTER))
 
+CREOFTRIM_EXCLUDES:=page_list.txt 	# We will also exclude all symlinks, which is covered by the '-type f' part of the find command below.
+CREOFTRIM_FILES:=$(filter-out $(CREOFTRIM_EXCLUDES), $(shell find . -maxdepth 1 -name '*.txt' -type f -printf '%f '))
+
 .PHONY : site 
 
-site : $(PAGE_DEFS) $(PAGE_FILES)
+site : $(PAGE_DEFS) $(PAGE_FILES) $(CREOFTRIM_FILES)
 #	$(PAGE_ARRAY)
 #	@echo $(PAGE_ARRAY)
 	@echo Page names are: $(PAGE_NAMES)
 	@echo Page files are: $(PAGE_FILES)
 	@echo Pre-requisites for $@ are: $^
 	
+$(CREOFTRIM_FILES) : CREOFTRIM
+	@echo "Trimming final CR from $@."
+	perl -pi -e 'chomp if EOF' $@
+
+CREOFTRIM :
+
 #$(PAGE_NAMES) : thispagefile=$(shell grep $(PAGE_NAME) $(PAGEARRAY)
 
 
