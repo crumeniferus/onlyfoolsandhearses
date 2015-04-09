@@ -6,7 +6,7 @@
 				<h2>Featured Shot</h2>
 				<h3><a href="#">Our Horse-Drawn Hearse, hitched to the Reliant Robin.</a></h3>
 			</hgroup>
-		<p>The horse-drawn hearse has been specially adapted to be towed by the Only Fools and Hearses Reliant Robin. Additional funeral cars and bearers are available for hire from our partner company, R H Funeral Services.</p>
+		<p>The horse-drawn hearse has been specially adapted to be towed by the Only Fools and Hearses Reliant Robin. Additional funeral cars and bearers are available for hire from our partner company, m4_sinclude(`partner_name_main.txt').</p>
 		 <p>All our fleet is constantly kept in top condition.</p>
 		<p>Having said that, we don't want the Reliant Robin to look too good otherwise it would lose its authenticity!</p>
 
@@ -16,7 +16,8 @@
 		 	<ol id="posts-list" class="hfeed">
 				<li><article class="hentry">
 					<header>
-						<h2 class="entry-title"><a href="#" rel="bookmark" title="Permalink to this POST TITLE">Joining up with R H Funeral Services of Dorset</a></h2>
+						<h2 class="entry-title"><a href="#" rel="bookmark" title="Permalink to this POST TITLE">
+Joining up with m4_sinclude(`partner_name_main.txt')</a></h2>
 				  </header>
 
 					<footer class="post-info">
@@ -30,7 +31,7 @@
 					</footer><!-- /.post-info -->
 
 					<div class="entry-content">
-						<p>We recently added something a little different to the fleet of R H Funeral Services with our yellow Reliant Robin in the style of Only Fools and Horses, and magnificently presented horse-drawn hearse. We are proud to be able to work so closely with such a well-respected hearse and limousine hire company.</p>
+						<p>We recently added something a little different to the fleet of m4_sinclude(`partner_name_main.txt') with our yellow Reliant Robin in the style of Only Fools and Horses, and magnificently presented horse-drawn hearse. We are proud to be able to work so closely with such a well-respected hearse and limousine hire company.</p>
 					</div><!-- /.entry-content -->
 				</article></li>
 
