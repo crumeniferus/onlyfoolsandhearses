@@ -10,7 +10,7 @@
 		<li><a href="webcal://m4_sinclude(`calendar_url_horse-drawn.txt')">Horse-Drawn Hearse free/busy calendar (direct link).</a></li>
 		<li>Reliant Robin free/busy calendar address to copy and paste: m4_sinclude(`calendar_url_robin.txt')</li>
 		<li>Horse-Drawn Hearse free/busy calendar address to copy and paste: m4_sinclude(`calendar_url_horse-drawn.txt')</li>
-		<li>Reliant Robin free-busy calendar as a news feed.</li>
-		<li>horse-Drawn Hearse free-busy calendar as a news feed.</li>
+		<li><a href="https://m4_sinclude(`calendar_rss_robin.txt')">Reliant Robin free-busy calendar as a news feed.</a></li>
+		<li><a href="https://m4_sinclude(`calendar_rss_horse-drawn.txt')">Horse-Drawn Hearse free-busy calendar as a news feed.</a></li>
 	</ul>
 		</section><!-- /#content --> 
