@@ -1,0 +1,4 @@
+Icon images are intended for buttons and bullets.
+They should be equal to or smaller than 18 pixels wide x 18 pixels high exactly.
+If the image proportions are not the same as this, scale so that the image fits _within_ a 18 x 18 box.
+There are some SVG files of zero size. These are the marker files to check if a new SVG to PNG conversion is required. The base SVG files normally live in the "originals" directory.
