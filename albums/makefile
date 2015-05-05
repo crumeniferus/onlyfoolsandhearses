@@ -18,28 +18,37 @@ dep-steplist:=$(join $(addsuffix :, $(steplist)),$(prev-steplist))
 
 # For the actual rules with real recipies, we don't want anything to rely on '00-none' or its derived files.
 # Any items that didn't form a rule should be removed.
-stepfile-rulelist:=$(filter-out %:, $(filter-out %00-none, $(dep-steplist)))
-stepfile-rulelist:=$(addsuffix .filelist, $(stepfile-rulelist))
+todofile-list:=$(addsuffix .todo,$(wordlist 2,$(words $(steplist)),$(steplist)))
+prev-filelist:=$(addsuffix .filelist, $(filter-out 99-complete,$(steplist)))
+stepfile-rulelist:=$(join $(addsuffix :,$(todofile-list)),$(prev-filelist))
+define todo-template =
+$(1)
+	@#echo $$< $$@
+	@cp $$< $$@
+endef
 
 all: $(steplist)
-	@#echo Steps are: $(steplist)
-	@#echo Prior steps are: $(prev-steplist)
-	@#echo Inter-step dependencies are: $(dep-steplist)
-	@#echo Dependencies to be made into actual rules are: $(stepfile-rulelist)
+	@echo Steps are: $(steplist)
+	@echo Prior steps are: $(prev-steplist)
+	@echo Inter-step dependencies are: $(dep-steplist)
+	@echo Todo files are: $(todofile-list)
+	@echo Pre-requisite filelists are: $(prev-filelist)
+	@echo Dependencies to be made into actual rules are: $(stepfile-rulelist)
 
 # Use $(stepfile-rulelist) as makefile rules.
-$(foreach filedep, $(stepfile-rulelist), $(eval $(filedep)))
+$(foreach filedep, $(stepfile-rulelist), $(eval $(call todo-template,$(filedep))))
+#$(foreach filedep, $(stepfile-rulelist), $(eval $(filedep)))
 
 # Make sure no recipes are invoked for the vurtual step "00-none".
 00-none:
 
 00-none.%:
 
-$(steplist): %: %.depend
+$(filter-out 10-original, $(steplist)): %: %.todo
 	@echo "$@: $<"
 
-%.depend:
-	@echo "Building $@"
+#%.todo:
+#	@echo "Building $@"
 
 %.filelist: %.filelistnew
 	@# If the filelist did not alrady exist, create it.
