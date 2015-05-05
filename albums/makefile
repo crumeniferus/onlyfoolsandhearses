@@ -30,11 +30,12 @@ prereq-part = $(lastword $(subst :, ,$(1)))
 
 define todo-template =
 $(1):$(2)
+	@# Translate contents of todo list into a dependency.
+	@# Extract basename of first parameter to know target directory.
+	@# Split each line on the directory separator and re-assemble to create a rule of the form:
+	@#	target_step/file_name_at_previous_step:previous_step/file_name_at_previous_step
 	@cp $$< $$@
-	sed --in-place 's/^\(.*\)\/\(.*\)/$(basename $(1))\/\2:\1\/\2/' $(1)
-
-# Translate contents of todo list into a dependency.
-# Extract basename of first parameter to know target directory.
+	@sed --in-place 's/^\(.*\)\/\(.*\)/$(basename $(1))\/\2:\1\/\2/' $(1)
 endef
 
 
