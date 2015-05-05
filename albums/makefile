@@ -24,6 +24,7 @@ all: $(steplist)
 
 $(foreach filedep, $(wordlist 2, $(words $(dep-stepfilelist)), $(dep-stepfilelist)), $(eval $(filedep)))
 
+# Make sure no recipes are invoked for the vurtual step "00-none".
 00-none:
 
 00-none.%:
