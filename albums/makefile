@@ -21,11 +21,20 @@ dep-steplist:=$(join $(addsuffix :, $(steplist)),$(prev-steplist))
 todofile-list:=$(addsuffix .todo,$(wordlist 2,$(words $(steplist)),$(steplist)))
 prev-filelist:=$(addsuffix .filelist, $(filter-out 99-complete,$(steplist)))
 stepfile-rulelist:=$(join $(addsuffix :,$(todofile-list)),$(prev-filelist))
+
+target-step=$(basename $@)
+pre-req-step=$(basename $<)
+
+target-part = $(firstword $(subst :, ,$(1)))
+prereq-part = $(lastword $(subst :, ,$(1)))
+
 define todo-template =
-$(1)
-	@#echo $$< $$@
+$(1):$(2)
 	@cp $$< $$@
+	
+#sed 's/*\//
 endef
+
 
 all: $(steplist)
 	@echo Steps are: $(steplist)
@@ -36,8 +45,7 @@ all: $(steplist)
 	@echo Dependencies to be made into actual rules are: $(stepfile-rulelist)
 
 # Use $(stepfile-rulelist) as makefile rules.
-$(foreach filedep, $(stepfile-rulelist), $(eval $(call todo-template,$(filedep))))
-#$(foreach filedep, $(stepfile-rulelist), $(eval $(filedep)))
+$(foreach filedep, $(stepfile-rulelist), $(eval $(call todo-template, $(call target-part,$(filedep)), $(call prereq-part,$(filedep)) )))
 
 # Make sure no recipes are invoked for the vurtual step "00-none".
 00-none:
