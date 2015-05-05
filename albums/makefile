@@ -31,8 +31,10 @@ prereq-part = $(lastword $(subst :, ,$(1)))
 define todo-template =
 $(1):$(2)
 	@cp $$< $$@
-	
-#sed 's/*\//
+	sed --in-place 's/^\(.*\)\/\(.*\)/$(basename $(1))\/\2:\1\/\2/' $(1)
+
+# Translate contents of todo list into a dependency.
+# Extract basename of first parameter to know target directory.
 endef
 
 
