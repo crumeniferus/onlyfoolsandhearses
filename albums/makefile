@@ -22,7 +22,9 @@ all: $(steplist)
 	@echo Inter-step dependencies are: $(dep-steplist)
 	@echo Step file dependencies are: $(dep-stepfilelist)
 
-00-none:
+$(foreach filedep, $(wordlist 2, $(words $(dep-stepfilelist)), $(dep-stepfilelist)), $(eval $(filedep)))
+
+00-none 00-none.%:
 
 $(steplist): %: %.depend
 	@echo "$@: $<"
@@ -31,16 +33,27 @@ $(steplist): %: %.depend
 	@echo "Building $@"
 
 %.filelist: %.filelistnew
+	# If the filelist did not alrady exist, create it.
 	# If the existing and new file lists differ, take the new one.
+	@# If the file list did not previously exist and the directory is currently empty, diff will be equal.
 	@# For our needs, a non-existant .filelist is the same as an out of date one.
 	@# Diff returns:
 	@# 	0 no diffs
 	@# 	1 some diffs
 	@# 	2 error
-	@diff --brief --new-file $@ $< || mv $< $@
+	@if test ! -f $@ ;\
+		then mv $< $@ && echo "Filelist $@ did not exist, creating new." ;\
+	elif diff --brief --new-file $@ $< ;\
+		then echo "Filelist $@ up to date." ;\
+	else mv $< $@ && echo "Filelist $@ outdated, updating.";\
+	fi
 
 %.filelistnew: %
-	@ls -1 $</* > $@
+	@# Make accepts only a return status of 0 as success.
+	@# For us, an empty directory is not a cause for error but ls will return 2 in this case.
+	@# Make seems inconsolable over this return status.
+	@touch $@
+	@-ls -1 $</* > $@ || touch $@
 	
 	@# Determine the preceding step, and use its file listing. 
 	@#@echo Need a listing of $(patsubst $(basename $@):%, %, $(dep-steplist))
