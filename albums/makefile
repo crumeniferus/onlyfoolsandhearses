@@ -27,7 +27,7 @@ all: $(steplist)
 	@#echo Inter-step dependencies are: $(dep-steplist)
 	@#echo Dependencies to be made into actual rules are: $(stepfile-rulelist)
 
-# Use $(dep-stepfilelist) as makefile rules. However, we don't want anything to rely on '00-none.filelist'.
+# Use $(stepfile-rulelist) as makefile rules.
 $(foreach filedep, $(stepfile-rulelist), $(eval $(filedep)))
 
 # Make sure no recipes are invoked for the vurtual step "00-none".
