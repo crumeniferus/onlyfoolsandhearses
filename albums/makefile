@@ -24,7 +24,9 @@ all: $(steplist)
 
 $(foreach filedep, $(wordlist 2, $(words $(dep-stepfilelist)), $(dep-stepfilelist)), $(eval $(filedep)))
 
-00-none 00-none.%:
+00-none:
+
+00-none.%:
 
 $(steplist): %: %.depend
 	@echo "$@: $<"
