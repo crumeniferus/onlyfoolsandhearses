@@ -17,10 +17,10 @@ dep-steplist:=$(join $(addsuffix :, $(steplist) 99-complete),$(prev-steplist))
 dep-stepfilelist:=$(addsuffix .filelist, $(dep-steplist))
 
 all: $(steplist)
-	@echo Steps are: $(steplist)
-	@echo Prior steps are: $(prev-steplist)
-	@echo Inter-step dependencies are: $(dep-steplist)
-	@echo Step file dependencies are: $(dep-stepfilelist)
+	@#echo Steps are: $(steplist)
+	@#echo Prior steps are: $(prev-steplist)
+	@#echo Inter-step dependencies are: $(dep-steplist)
+	@#echo Step file dependencies are: $(dep-stepfilelist)
 
 $(foreach filedep, $(wordlist 2, $(words $(dep-stepfilelist)), $(dep-stepfilelist)), $(eval $(filedep)))
 
