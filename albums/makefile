@@ -22,10 +22,10 @@ stepfile-rulelist:=$(filter-out %:, $(filter-out %00-none, $(dep-steplist)))
 stepfile-rulelist:=$(addsuffix .filelist, $(stepfile-rulelist))
 
 all: $(steplist)
-	@echo Steps are: $(steplist)
-	@echo Prior steps are: $(prev-steplist)
-	@echo Inter-step dependencies are: $(dep-steplist)
-	@echo Dependencies to be made into actual rules are: $(stepfile-rulelist)
+	@#echo Steps are: $(steplist)
+	@#echo Prior steps are: $(prev-steplist)
+	@#echo Inter-step dependencies are: $(dep-steplist)
+	@#echo Dependencies to be made into actual rules are: $(stepfile-rulelist)
 
 # Use $(dep-stepfilelist) as makefile rules. However, we don't want anything to rely on '00-none.filelist'.
 $(foreach filedep, $(stepfile-rulelist), $(eval $(filedep)))
@@ -42,8 +42,8 @@ $(steplist): %: %.depend
 	@echo "Building $@"
 
 %.filelist: %.filelistnew
-	# If the filelist did not alrady exist, create it.
-	# If the existing and new file lists differ, take the new one.
+	@# If the filelist did not alrady exist, create it.
+	@# If the existing and new file lists differ, take the new one.
 	@# If the file list did not previously exist and the directory is currently empty, diff will be equal.
 	@# For our needs, a non-existant .filelist is the same as an out of date one.
 	@# Diff returns:
