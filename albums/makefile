@@ -67,3 +67,6 @@ $(steplist): %: %.depend
 	@# Determine the preceding step, and use its file listing. 
 	@#@echo Need a listing of $(patsubst $(basename $@):%, %, $(dep-steplist))
 
+.PHONY: clean
+clean:
+	-rm -f *.filelist
