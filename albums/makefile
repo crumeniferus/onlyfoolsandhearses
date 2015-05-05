@@ -58,9 +58,6 @@ $(foreach filedep, $(stepfile-rulelist), $(eval $(call todo-template, $(call tar
 $(filter-out 10-original, $(steplist)): %: %.todo
 	@echo "$@: $<"
 
-#%.todo:
-#	@echo "Building $@"
-
 %.filelist: %.filelistnew
 	@# If the filelist did not alrady exist, create it.
 	@# If the existing and new file lists differ, take the new one.
@@ -90,3 +87,4 @@ $(filter-out 10-original, $(steplist)): %: %.todo
 .PHONY: clean
 clean:
 	-rm -f *.filelist
+	-rm -f *.todo
