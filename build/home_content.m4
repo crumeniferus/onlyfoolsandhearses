@@ -1,6 +1,6 @@
 		<aside id="featured" class="body"><article>
 			<figure>
-				<img src="images/article/fleet_black.jpg" width="320" height="240" alt="Inside" />
+				<a href="images/large/IMG_0440.png"><img src="images/article/IMG_0440.png" max-width="320" max-height="240" alt="Horse-Drawn Hearse hitched to Yellow Reliant Three-Wheeler" /></a>
 			</figure>
 			<hgroup>
 				<h2>Featured Shot</h2>
