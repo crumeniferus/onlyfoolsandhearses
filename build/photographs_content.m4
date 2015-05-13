@@ -8,24 +8,14 @@
 			<div class="pxs_loading">Loading images...</div>
 			<div class="pxs_slider_wrapper">
 				<ul class="pxs_slider">
-					<li><img src="images/slideshow/1.jpg" alt="First Image" /></li>
-					<li><img src="images/slideshow/2.jpg" alt="Second Image" /></li>
-					<li><img src="images/slideshow/3.jpg" alt="Third Image" /></li>
-					<li><img src="images/slideshow/4.jpg" alt="Forth Image" /></li>
-					<li><img src="images/slideshow/5.jpg" alt="Fifth Image" /></li>
-					<li><img src="images/slideshow/6.jpg" alt="Sixth Image" /></li>
+					m4_sinclude(`slideshow_images_slideshow.html')
 				</ul>
 				<div class="pxs_navigation">
 					<span class="pxs_next"></span>
 					<span class="pxs_prev"></span>
 				</div>
 				<ul class="pxs_thumbnails">
-					<li><img src="images/thumbs/1.jpg" alt="First Image" /></li>
-					<li><img src="images/thumbs/2.jpg" alt="Second Image" /></li>
-					<li><img src="images/thumbs/3.jpg" alt="Third Image" /></li>
-					<li><img src="images/thumbs/4.jpg" alt="Forth Image" /></li>
-					<li><img src="images/thumbs/5.jpg" alt="Fifth Image" /></li>
-					<li><img src="images/thumbs/6.jpg" alt="Sixth Image" /></li>
+					m4_sinclude(`slideshow_images_thumbs.html')
 				</ul>
 			</div>
 		</div>
