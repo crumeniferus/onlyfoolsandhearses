@@ -29,7 +29,7 @@ LIVE_URL:
 SUB_PATHS:=css images js
 FILE_TYPES:=html css jpg js
 FILE_SPECS:=*.html css/*.css images/*.jpg js/*.js
-file_filter=find $< \( -name *.jpg -o -name *.html -o -name *.js -o -name *.css \) -printf "%P\n"
+file_filter=find $< \( -name *.jpg -o -name *.png -o -name *.html -o -name *.js -o -name *.css \) -printf "%P\n"
 RSYNCFLAGS:=--verbose --times --progress --stats  --files-from=-
 #WPUTDEBUGFLAGS:=--verbose --verbose --output-file=wput-log
 WPUTDEBUGFLAGS:=
@@ -56,14 +56,14 @@ upload-live : UPLOAD_DEST=$(LIVE_URL)
 upload-live : upload
 
 upload : site
-	#wput returns a few different status values:
-	# 0 - All okay or nothing to do.
-	# 1 - Some files skipped due to size or timestamp checks that decided no transmission was required.
-	# 2 - Error at the remote end.
-	# 3 - Combination of 1 and 2.
-	# 4 - Local error.
-	#For our purposes, exit values 0 and 1 are a success but make considers only 0 to be a success.
-	#No additional warning messages are needed on top of those already supplied by wput.
+	@#wput returns a few different status values:
+	@# 0 - All okay or nothing to do.
+	@# 1 - Some files skipped due to size or timestamp checks that decided no transmission was required.
+	@# 2 - Error at the remote end.
+	@# 3 - Combination of 1 and 2.
+	@# 4 - Local error.
+	@#For our purposes, exit values 0 and 1 are a success but make considers only 0 to be a success.
+	@#No additional warning messages are needed on top of those already supplied by wput.
 	wput $(WPUTDEBUGFLAGS) $(WPUTFLAGS) --basename=./site/ ./site $(UPLOAD_DEST) || (if [ $$? = 1 ]; then exit 0; fi)
 
 $(filter-out build, $(DEV_STAGE_NAMES)):
