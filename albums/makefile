@@ -1,90 +1,67 @@
-# Makefile to keep track of which files need processing.
-# Designed to work with GnuMake.
-# Processing is done in distinct steps.
-# Each step has its own sub-directory, numbered to indicate order and named for clarity.
-# There is one virtual step which has no real directory: 00-none, which denotes the very begiinning.
-# There is one fixed and real step which must always be the last step: 99-complete.
-# Each sub-directory has its own list of what needs doing, based on what's missing compared to the previous step. This means that there is not a huge list of every single job that will need doing, just a list of what needs doing to progress to the next step.
-# Numbering the directories means a lexical sort can be used to indicate order, which means simple list indexing can automatically derive dependencies.
-# Cases where this may produce spurious results are when the original has been processed once and subsequently updated while the previous set of processing is still in place.
-
-# There are some nifty ways to get a makefile to build itself, or at least build an included makefile but here I'm going for an older method where the dependencies are built in a discreet step.
-
-# Variable $(steplist) is ordered ascending so a copy shifted by one will allow join() to produce al list of adjacent steps.
-# The list of previous steps must start with the virtual step '00-none' and the final step '99-complete' can not, by definition, be a previous step.
-steplist:=$(patsubst %/,%,$(sort $(dir $(wildcard */))))
-prev-steplist:= 00-none $(filter-out 99-complete, $(steplist))
-dep-steplist:=$(join $(addsuffix :, $(steplist)),$(prev-steplist))
-
-# For the actual rules with real recipies, we don't want anything to rely on '00-none' or its derived files.
-# Any items that didn't form a rule should be removed.
-todofile-list:=$(addsuffix .todo,$(wordlist 2,$(words $(steplist)),$(steplist)))
-prev-filelist:=$(addsuffix .filelist, $(filter-out 99-complete,$(steplist)))
-stepfile-rulelist:=$(join $(addsuffix :,$(todofile-list)),$(prev-filelist))
-
-target-step=$(basename $@)
-pre-req-step=$(basename $<)
-
-target-part = $(firstword $(subst :, ,$(1)))
-prereq-part = $(lastword $(subst :, ,$(1)))
-
-define todo-template =
-$(1):$(2)
-	@# Translate contents of todo list into a dependency.
-	@# Extract basename of first parameter to know target directory.
-	@# Split each line on the directory separator and re-assemble to create a rule of the form:
-	@#	target_step/file_name_at_previous_step:previous_step/file_name_at_previous_step
-	@cp $$< $$@
-	@sed --in-place 's/^\(.*\)\/\(.*\)/$(basename $(1))\/\2:\1\/\2/' $(1)
-endef
+# This workflow is represented by a simple category/strategy/queue approach.
+# Each step in the process is represented by a queue.
+# Each queue is a directory and the files within it represent the cases in that queue.
+# Queues are sequential and a case can not be in two queues at once.
+# When a case is in a queue, it is still waiting to be serviced.
+# When a case has been processed in the queue, it is moved to the next queue.
+# This particular process is a series of manual tasks: image editing.
+# Moving a worked case to the next queue is a manual process performed when the image editor has finished the edits required in that queue.
+# In most file systems, the timestamp of each queue directory will be equal to that of the newest case file.
+#
+# In addition to the strategy-specific queues are four standard silos: inputs, outputs, done and rejects.
+# These are to help move cases from strategy to strategy so that there are some key fixed elements.
+# Here is their intended use:
+# inputs
+#   Ordinarily, one can expect each strategy to move any files from the inputs silo to the first queue immediately.
+# outputs
+#   Files created by a queue that are not the case file itself.
+# done
+#   Case files that have run the complete set of queues without incident.
+# rejects
+#   Case files that failed a test in one of the queues.
+#
+# Important caveats:
+#  Queue directories must be named with a 2-digit number at the beginning. The number indicates order of processing.
+#  The image editing tool is GIMP and the undo history is preserved in the XCF file. If another image editing tool is used, these features must be considered.
+#  If an image has to be, for example, re-cropped, the file is moved to the necessary directory and the operator uses their personal skill and judgement to re-crop while preserving as much as appropriate and possible of the other edits.
+#  Case files can not begin with a dot. This is the name format conventionally used for hidden files and is used in this process for files that are part of the mechanism.
+#
+# End goals of this makefile are:
+#  A single to-do list of what has to be done to advance each case to the next queue.
+#  A special file in each silo to ensure that even empty ones remain in Git's repository.
+#
 
 
-all: $(steplist)
-	@echo Steps are: $(steplist)
-	@echo Prior steps are: $(prev-steplist)
-	@echo Inter-step dependencies are: $(dep-steplist)
-	@echo Todo files are: $(todofile-list)
-	@echo Pre-requisite filelists are: $(prev-filelist)
-	@echo Dependencies to be made into actual rules are: $(stepfile-rulelist)
+QUEUES:=$(shell find . -path "./[0-9][0-9]*" -type d -printf "%P\n" | sort)
+FIRST-QUEUE:=$(firstword $(QUEUES))
+FIXED-SILOS:=inputs outputs done rejects
+ALL-SILOS:=$(QUEUES) $(FIXED-SILOS)
+TO-DO-FILE:=process.todo
+GITSAFE-FILE:=.gitkeep
 
-# Use $(stepfile-rulelist) as makefile rules.
-$(foreach filedep, $(stepfile-rulelist), $(eval $(call todo-template, $(call target-part,$(filedep)), $(call prereq-part,$(filedep)) )))
+.PHONY: all bootstrap to-do clean gitsafe FORCE
 
-# Make sure no recipes are invoked for the vurtual step "00-none".
-00-none:
+all: bootstrap to-do gitsafe
 
-00-none.%:
+bootstrap:
+	$(info Moving all new input files to the first queue.)
+	@find ./inputs ! -name $(GITSAFE-FILE) -type f -exec mv '{}' '$(FIRST-QUEUE)' ';'
 
-$(filter-out 10-original, $(steplist)): %: %.todo
-	@echo "$@: $<"
+to-do: $(TO-DO-FILE)
 
-%.filelist: %.filelistnew
-	@# If the filelist did not alrady exist, create it.
-	@# If the existing and new file lists differ, take the new one.
-	@# If the file list did not previously exist and the directory is currently empty, diff will be equal.
-	@# For our needs, a non-existant .filelist is the same as an out of date one.
-	@# Diff returns:
-	@# 	0 no diffs
-	@# 	1 some diffs
-	@# 	2 error
-	@if test ! -f $@ ;\
-		then mv $< $@ && echo "Filelist $@ did not exist, creating new." ;\
-	elif diff --brief --new-file $@ $< ;\
-		then echo "Filelist $@ up to date." ;\
-	else mv $< $@ && echo "Filelist $@ outdated, updating.";\
-	fi
+$(TO-DO-FILE): $(QUEUES)
+	$(info Queues found are $(QUEUES))
+	@echo "# Cases ordered oldest first" > $@
+	@find . -path "./[0-9][0-9]*" ! -name ".*" -type f -printf "%T+ %P\n" | sort | cut -d\  -f2 >> $@
 
-%.filelistnew: %
-	@# Make accepts only a return status of 0 as success.
-	@# For us, an empty directory is not a cause for error but ls will return 2 in this case.
-	@# Make seems inconsolable over this return status.
+gitsafe: $(addsuffix /$(GITSAFE-FILE), $(ALL-SILOS))
+
+%/$(GITSAFE-FILE):
+	$(info Creating missing dummy file $@ to preserve empty queue in Git.)
 	@touch $@
-	@-ls -1 $</* > $@ || touch $@
-	
-	@# Determine the preceding step, and use its file listing. 
-	@#@echo Need a listing of $(patsubst $(basename $@):%, %, $(dep-steplist))
 
-.PHONY: clean
 clean:
-	-rm -f *.filelist
-	-rm -f *.todo
+	rm -f $(TO-DO-FILE)
+
+FORCE:
+
