@@ -41,7 +41,7 @@ GITSAFE-FILE:=.gitkeep
 
 .PHONY: all bootstrap to-do clean gitsafe FORCE
 
-all: bootstrap to-do
+all: bootstrap to-do gitsafe
 
 bootstrap:
 	$(info Moving all new input files to the first queue.)
