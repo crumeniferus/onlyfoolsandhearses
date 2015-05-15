@@ -1,3 +1,4 @@
-10-original/random1
-10-original/random2
-20-cropped/random1
+# Cases ordered oldest first
+10-select/random2
+20-crop/random1
+10-select/random1
