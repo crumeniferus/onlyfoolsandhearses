@@ -3,7 +3,6 @@
 			<div class="social"> 
 				<h2>Social</h2> 
 				<ul> 
-					<li>crum4_social_link_short(`Facebook',`facebook')</li>
 					<li>crum4_social_link_short(`Google+',`googleplus')</li>
 				</ul> 
 			</div><!-- /.social --> 
