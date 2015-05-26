@@ -14,7 +14,7 @@
 # inputs
 #   Ordinarily, one can expect each strategy to move any files from the inputs silo to the first queue immediately.
 # outputs
-#   Files created by a queue that are not the case file itself.
+#   Files created by a queue that are not the case file itself. A strategy could result in more than one output file per case. For example, a processed image can result in the XCF file that was used for the actual editing, and the final exported image files, which could be the same image in more than one format.
 # done
 #   Case files that have run the complete set of queues without incident.
 # rejects
