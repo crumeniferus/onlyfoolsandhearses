@@ -6,7 +6,7 @@
 				<h2>Latest Party</h2>
 				<h3><a href="#">Only Fools and Horses Stag-Do</a></h3>
 			</hgroup>
-		<p>The horse-drawn hearse was unhitched so that this bunch of likely lads could send off their comrade into married life. You could also hire a limousine or two from our partner company, m4_sinclude(`partner_name_main.txt') which will look spectacular: imagine two rather grand black limousines led from the front by the infamous yellow three-wheeler!</p>
+		<p>The horse-drawn hearse was unhitched so that this bunch of likely lads could send off their comrade into married life. You could also hire a limousine or two from our partner company, m4_sinclude(`partner_name_main.txt'). Put the name aside for a moment and imagine how spectacular it will look: two splendid limousines led from the front by the infamous yellow three-wheeler!</p>
 		 <p>All the fleet is kept in top condition.</p>
 		<p>Having said that, we don't want the Reliant Robin to look too good otherwise it would lose its authenticity!</p>
 
