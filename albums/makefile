@@ -22,7 +22,7 @@
 #
 # Important caveats:
 #  Queue directories must be named with a 2-digit number at the beginning. The number indicates order of processing.
-#  The image editing tool is GIMP and the undo history is preserved in the XCF file. If another image editing tool is used, these features must be considered.
+#  The image editing tool is GIMP and the undo history is not preserved in the XCF file. If another image editing tool is used, these features must be considered. To workaround GIMP's ephemeral history, each edit is saved as a layer above the previous. This could in fact make re-working edits easier in some cases.
 #  If an image has to be, for example, re-cropped, the file is moved to the necessary directory and the operator uses their personal skill and judgement to re-crop while preserving as much as appropriate and possible of the other edits.
 #  Case files can not begin with a dot. This is the name format conventionally used for hidden files and is used in this process for files that are part of the mechanism.
 #
