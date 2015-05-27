@@ -1,14 +1,14 @@
 		<aside id="featured" class="body"><article>
 			<figure>
-				<a href="images/large/IMG_0440.png"><img src="images/article/IMG_0440.png" max-width="320" max-height="240" alt="Horse-Drawn Hearse hitched to Yellow Reliant Three-Wheeler" /></a>
+				<a href="images/large/DSCF5316.png"><img src="images/article/DSCF5316.png" max-width="320" max-height="240" alt="Only Fools and Horses Stag-Do" /></a>
 			</figure>
 			<hgroup>
-				<h2>Featured Shot</h2>
-				<h3><a href="#">Our Horse-Drawn Hearse, hitched to the Reliant Robin.</a></h3>
+				<h2>Latest Party</h2>
+				<h3><a href="#">Only Fools and Horses Stag-Do</a></h3>
 			</hgroup>
-		<p>The horse-drawn hearse has been specially adapted to be towed by the Only Fools and Hearses Reliant Robin. Additional funeral cars and bearers are available for hire from our partner company, m4_sinclude(`partner_name_main.txt').</p>
-		 <p>All our fleet is constantly kept in top condition.</p>
-		<p>Having said that, we don't want the Reliant Robin to look too good otherwise it would lose its authenticity!</p>
+		<p>The horse-drawn hearse was unhitched so that this bunch of likely lads could send off their comrade into married life. We managed to grab this quick snap mid-mayhem but if you want to see some high quality images of the Only Fools and Hearses three-wheeler, take a look at the gallery.</p>
+<p>You could also hire a limousine or two from our partner company, m4_sinclude(`partner_name_main.txt'). Put the name aside for a moment and imagine how spectacular it will look: two splendid limousines led from the front by the infamous yellow three-wheeler!</p>
+		 <p>All the fleet is kept in top condition. Mostly. We don't want the Reliant Robin to look too good otherwise it would lose its authenticity!</p>
 
 		</article></aside><!-- /#featured -->
 
