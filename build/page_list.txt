@@ -1,6 +1,6 @@
 #<displayed page name>,<file name>
 home,index.html
-parties,events.html
+funerals,funerals.html
 photographs,gallery.html
 booking,booking.html
 contact,contact.html
