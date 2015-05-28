@@ -12,7 +12,7 @@ dormant: $(addprefix complete-, $(ACTIVE-STRATS))
 
 complete-%:
 	$(info Strategy '$*': Moving all cases from 'done' silo to '$(DORMANT-STRAT)' strategy.)
-	#mv $*/done/* $(DORMANT-STRAT)/inputs
+	@mv $*/done/* $(DORMANT-STRAT)/inputs
 
 new-strategy: NEWSTRAT?="$(shell read newstrat && echo $$newstrat)"
 new-strategy:
