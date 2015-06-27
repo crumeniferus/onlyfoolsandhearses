@@ -23,7 +23,8 @@
 
 STAGE_NAMES:=devel beta live
 BETA_URL=ftp://b6_14967648:C43353M315T3R@ftp.byethost6.com/ofah.byethost6.com/htdocs/
-LIVE_URL:
+#LIVE_URL=ftp://crumeniferus@ftp.onlyfoolsandhearses.co.uk/public_html/
+LIVE_URL=ftp://crumeniferus:C4335y81t5@ftp.onlyfoolsandhearsesdorset.co.uk/public_html/
 
 #Limit what we're interested in. 
 SUB_PATHS:=css images js
@@ -31,8 +32,8 @@ FILE_TYPES:=html css jpg js
 FILE_SPECS:=*.html css/*.css images/*.jpg js/*.js
 file_filter=find $< \( -name *.jpg -o -name *.png -o -name *.html -o -name *.js -o -name *.css \) -printf "%P\n"
 RSYNCFLAGS:=--verbose --times --progress --stats  --files-from=-
-#WPUTDEBUGFLAGS:=--verbose --verbose --output-file=wput-log
-WPUTDEBUGFLAGS:=
+WPUTDEBUGFLAGS:=--verbose --verbose --output-file=wput-log
+#WPUTDEBUGFLAGS:=
 WPUTFLAGS:=--reupload --dont-continue
 
 # Ready made line for quick copy to command line:
@@ -66,6 +67,6 @@ upload : site
 	@#No additional warning messages are needed on top of those already supplied by wput.
 	wput $(WPUTDEBUGFLAGS) $(WPUTFLAGS) --basename=./site/ ./site $(UPLOAD_DEST) || (if [ $$? = 1 ]; then exit 0; fi)
 
-$(filter-out build, $(DEV_STAGE_NAMES)):
-	$(local_upstage)
+#$(filter-out build, $(DEV_STAGE_NAMES)):
+	#$(local_upstage)
 	
