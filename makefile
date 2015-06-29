@@ -23,7 +23,7 @@
 
 STAGE_NAMES:=devel beta live
 BETA_URL=ftp://b6_14967648:C43353M315T3R@ftp.byethost6.com/ofah.byethost6.com/htdocs/
-LIVE_URL=ftp://crumeniferus:C4335y81t5@ftp.onlyfoolsandhearsesdorset.co.uk/public_html/
+LIVE_URL=ftp://onlyfoolsandhearsesdorset@crumeniferus.co.uk:C4335y81t5@ftp.crumeniferus.co.uk/
 
 #Limit what we're interested in. 
 SUB_PATHS:=css images js
