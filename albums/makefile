@@ -18,7 +18,9 @@ complete-%:
 		mv $*/done/* $(DORMANT-STRAT)/inputs; \
 	fi
 
-new-strategy: NEWSTRAT?="$(shell read newstrat && echo $$newstrat)"
+new-strategy: NEWSTRAT:=$(shell read newstrat && echo $$newstrat)
 new-strategy:
 	@echo Setting up new strategy $(NEWSTRAT)
-	rsync --links --ignore-existing --recursive --times $(SKEL-STRAT-DIR)/* $(NEWSTRAT)
+	@mkdir $(NEWSTRAT)
+	@rsync --links --ignore-existing --recursive --times $(SKEL-STRAT-DIR)/* $(NEWSTRAT)
+
