@@ -38,7 +38,7 @@ medium_width=640
 medium_height=480
 large_width=1600
 large_height=1200
-slideshow_width=760
+slideshow_width=650
 slideshow_height=280
 
 image_size=icons thumbs article medium large slideshow
@@ -70,6 +70,11 @@ $(image_size):$$(patsubst originals/%,$$@/%,$$(wildcard originals/*.svg))
 	$(CONVERT) $(CONVERT_COMMONFLAGS) $(CONVERT_SIZEFLAGS) $($(@D)_width)x$($(@D)_height) $(CONVERT_COLOURFLAGS) $< $(addsuffix .png,$(basename $@))
 	touch $@
 
+clean-all:clean-slideshow
+
+clean-slideshow:
+	rm slideshow/*.jpg
+	rm slideshow/*.png
 
 # Need a catch-all rule to catch files whose extansion doesn't match any of the above targets.
 # For now, the filter that creates the pre-requisites of the image_size rule has been narrowed.
