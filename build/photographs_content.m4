@@ -109,7 +109,7 @@
 										}
 										//hovering the thumbs animates them up and down
 										$this.bind('mouseenter',function(){
-											$(this).stop().animate({top:'-10px'},100);
+											$(this).stop().animate({top:'-35px'},100);
 										}).bind('mouseleave',function(){
 											$(this).stop().animate({top:'0px'},100);
 										});
